@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thiệp Sinh Nhật</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ================= PHONG THƯ ================= */
+.envelope {
+    width: 320px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+}
+
+/* mặt sau */
+.back {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+/* chữ trên phong thư */
+.envelope-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #8ECDF4;
+    text-shadow:
+        2px 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+    line-height: 1.25;
+    pointer-events: none;
+    z-index: 9;
+}
+
+/* mở → chữ biến mất */
+.envelope.open .envelope-text {
+    opacity: 0;
+    transform: translate(-50%, -65%);
+    transition: 0.4s ease;
+}
+
+/* khe chứa thiệp */
+.slot {
+    position: absolute;
+    inset: 10px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.envelope.open .slot {
+    overflow: visible;
+}
+
+/* ================= THIỆP ================= */
+.card {
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    transform: translateY(100%);
+    transition: transform 0.9s ease;
+    position: relative;
+    z-index: 5;
+}
+
+.envelope.open .card {
+    transform: translateY(-35%);
+    z-index: 10;
+}
+
+.card h1 {
+    margin: 0;
+    padding: 12px;
+    background: #ff5c8a;
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+}
+
+/* ================= TRANG ================= */
+.pages {
+    padding: 10px;
+    min-height: 170px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* ảnh */
+.photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.photos img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+}
+
+/* lời chúc */
+.wish {
+    font-size: 16px;
+    text-align: center;
+    padding: 35px 10px;
+    line-height: 1.6;
+}
+
+/* nút */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 16px 12px;
+}
+
+.nav button {
+    border: none;
+    background: #ff5c8a;
+    color: white;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+}
+
+/* ================= NẮP PHONG THƯ ================= */
+.flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-bottom: 110px solid #ff5c8a;
+    top: 0;
+    transform-origin: top;
+    transition: transform 0.8s ease;
+    z-index: 7;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+/* mặt trước */
+.front {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 110px solid #ff5c8a;
+    bottom: 0;
+    z-index: 4;
+}
+
+.envelope.open .front {
+    z-index: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" onclick="this.classList.toggle('open')">
+
+    <div class="back"></div>
+
+    <div class="envelope-text">
+        HELLO<br>
+        THANH PHƯƠNG!!!!!!!!
+    </div>
+
+    <div class="slot">
+        <div class="card">
+            <h1>🎂 Happy Birthday 🎉</h1>
+
+            <div class="pages">
+
+                <!-- TRANG 1 -->
+                <div class="page active">
+                    <div class="photos">
+                        <img src="img1.jpg">
+                        <img src="img2.jpg">
+                        <img src="img3.jpg">
+                        <img src="img4.jpg">
+                    </div>
+                </div>
+
+                <!-- TRANG 2 -->
+                <div class="page">
+                    <div class="wish">
+                        💐 <strong>Lan</strong><br>
+                        Chúc bạn luôn xinh đẹp, hạnh phúc và rạng rỡ mỗi ngày 💖
+                    </div>
+                </div>
+
+                <!-- TRANG 3 -->
+                <div class="page">
+                    <div class="wish">
+                        🎁 <strong>Minh</strong><br>
+                        Tuổi mới thật nhiều may mắn và thành công 🎉
+                    </div>
+                </div>
+
+                <!-- TRANG 4 -->
+                <div class="page">
+                    <div class="wish">
+                        🎉 <strong>Hà</strong><br>
+                        Mong mọi điều tốt đẹp nhất luôn ở bên bạn 🌸
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="nav">
+                <button onclick="prevPage(event)">◀</button>
+                <button onclick="nextPage(event)">▶</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flap"></div>
+    <div class="front"></div>
+
+</div>
+
+<script>
+let currentPage = 0;
+const pages = document.querySelectorAll(".page");
+
+function showPage(i) {
+    pages.forEach(p => p.classList.remove("active"));
+    pages[i].classList.add("active");
+}
+
+function nextPage(e) {
+    e.stopPropagation();
+    currentPage = (currentPage + 1) % pages.length;
+    showPage(currentPage);
+}
+
+function prevPage(e) {
+    e.stopPropagation();
+    currentPage = (currentPage - 1 + pages.length) % pages.length;
+    showPage(currentPage);
+}
+</script>
+
+</body>
+</html>
