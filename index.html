@@ -194,6 +194,25 @@ body {
 .envelope.open .front {
     z-index: 0;
 }
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+    .envelope {
+        width: 92vw;
+        height: 58vw;
+    }
+
+    .flap {
+        border-left: 46vw solid transparent;
+        border-right: 46vw solid transparent;
+        border-bottom: 30vw solid #ff5c8a;
+    }
+
+    .front {
+        border-left: 46vw solid transparent;
+        border-right: 46vw solid transparent;
+        border-top: 30vw solid #ff5c8a;
+    }
+}
 </style>
 </head>
 
@@ -310,3 +329,4 @@ document.getElementById("envelope").addEventListener("click", () => {
 
 </body>
 </html>
+
