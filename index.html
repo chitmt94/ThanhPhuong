@@ -96,7 +96,7 @@ body {
 }
 
 .envelope.open .card {
-    transform: translateY(-42%);
+    transform: translateY(-48%);
     z-index: 10;
 }
 
@@ -195,10 +195,13 @@ body {
     z-index: 0;
 }
 /* ===== MOBILE ===== */
-@media (max-width: 480px) {
+@media (max-width: none) {
     .envelope {
-        width: 92vw;
-        height: 58vw;
+        width: 96vw;
+        height: 64vw;
+        max-height:none;
+        position:relative;
+        cursor:pointer;
     }
 
     .flap {
@@ -329,4 +332,5 @@ document.getElementById("envelope").addEventListener("click", () => {
 
 </body>
 </html>
+
 
