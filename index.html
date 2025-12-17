@@ -7,12 +7,13 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
     margin:0;
-    width:100vw;
-    height:100vh;
-    background:linear-gradient(135deg,#fbc2eb,#a6c1ee);
+    min-height:100vh;
+    background: linear-gradient(135deg,#fbc2eb,#a6c1ee);
+    display:flex;
+    justify-content:center;
+    align-items:center;
     font-family:"Segoe UI",sans-serif;
     overflow:hidden;
 }
@@ -26,67 +27,60 @@ body{
     height:46px;
     border-radius:50%;
     border:none;
-    background:rgba(255,255,255,.85);
-    font-size:18px;
+    background:rgba(255,255,255,0.85);
+    font-size:20px;
+    cursor:pointer;
     z-index:100;
-    cursor:pointer;
-}
-
-/* ===== FULL SCREEN ===== */
-.envelope{
-    width:100vw;
-    height:100vh;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
 }
 
 /* ===== PHONG THƯ ===== */
+.envelope{
+    width:90vw;
+    max-width:380px;
+    aspect-ratio:19/12;
+    position:relative;
+    cursor:pointer;
+    perspective:1200px;
+}
+
+/* mặt sau */
 .back{
     position:absolute;
-    width:92vw;
-    max-width:420px;
-    height:58vw;
-    max-height:260px;
+    inset:0;
     background:#fff;
-    border-radius:18px;
+    border-radius:12px;
     z-index:1;
 }
 
-/* chữ ngoài phong thư */
+/* chữ trên phong thư */
 .envelope-text{
     position:absolute;
-    top:52%;
+    top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    font-size:22px;
-    font-weight:800;
+    font-size:clamp(16px,4vw,20px);
+    font-weight:900;
+    letter-spacing:1.5px;
     color:#8ECDF4;
+    text-shadow:1px 1px 4px rgba(0,0,0,0.2);
     text-align:center;
     line-height:1.25;
-    z-index:9;
     pointer-events:none;
+    z-index:9;
 }
-
 .envelope.open .envelope-text{
     opacity:0;
-    transform:translate(-50%,-70%);
-    transition:.4s ease;
+    transform:translate(-50%,-65%);
+    transition:0.4s ease;
 }
 
 /* khe chứa thiệp */
 .slot{
     position:absolute;
-    width:92vw;
-    max-width:420px;
-    height:58vw;
-    max-height:260px;
+    inset:8%;
     overflow:hidden;
     z-index:2;
 }
-
 .envelope.open .slot{
     overflow:visible;
 }
@@ -95,110 +89,131 @@ body{
 .card{
     width:100%;
     background:#fff;
-    border-radius:20px;
-    box-shadow:0 18px 36px rgba(0,0,0,.3);
+    border-radius:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.25);
     transform:translateY(100%);
-    transition:transform .9s ease;
-    z-index:5;
+    transition:transform 0.9s ease;
+    position:relative;
+    z-index:10; /* luôn trên cùng */
 }
-
 .envelope.open .card{
-    transform:translateY(-60%);
-    z-index:10;
+    transform:translateY(-50%);
 }
-
 .card h1{
     margin:0;
-    padding:14px;
+    padding:12px;
     background:#ff5c8a;
     color:#fff;
+    border-radius:14px 14px 0 0;
     text-align:center;
-    border-radius:20px 20px 0 0;
-    font-size:20px;
+    font-size:clamp(16px,4vw,20px);
 }
 
 /* ===== TRANG ===== */
 .pages{
-    padding:12px;
-    min-height:240px;
+    padding:10px;
+    min-height:180px;
 }
-
-.page{display:none}
-.page.active{display:block}
-
-/* ảnh */
+.page{display:none;}
+.page.active{display:block;}
 .photos{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:6px;
 }
-
 .photos img{
     width:100%;
-    height:180px;
-    object-fit:contain;
+    height:140px;
+    object-fit:cover;
 }
-
-/* lời chúc */
 .wish{
-    font-size:17px;
+    font-size:clamp(14px,4vw,16px);
     text-align:center;
-    padding:40px 12px;
-    line-height:1.7;
+    padding:32px 10px;
+    line-height:1.6;
 }
 
-/* nút trang */
+/* nút chuyển trang */
 .nav{
     display:flex;
     justify-content:space-between;
-    padding:10px 20px 16px;
+    padding:6px 16px 12px;
 }
-
 .nav button{
     border:none;
     background:#ff5c8a;
-    color:#fff;
-    font-size:20px;
-    padding:10px 18px;
-    border-radius:24px;
+    color:white;
+    font-size:18px;
+    border-radius:20px;
+    padding:6px 14px;
     cursor:pointer;
 }
 
 /* ===== NẮP PHONG THƯ ===== */
 .flap{
     position:absolute;
-    width:0;height:0;
-    border-left:46vw solid transparent;
-    border-right:46vw solid transparent;
-    border-bottom:28vw solid #ff5c8a;
-    top:calc(50% - 28vw);
+    width:0;
+    height:0;
+    border-left:45vw solid transparent;
+    border-right:45vw solid transparent;
+    border-bottom:30vw solid #ff5c8a;
+    top:0;
     transform-origin:top;
-    transition:transform .8s ease;
-    z-index:7;
+    transform:rotateX(0deg);
+    transition:transform 0.8s ease, z-index 0s linear 0.4s;
+    z-index:6;
+    backface-visibility:hidden;
 }
-
 .envelope.open .flap{
-    transform:rotateX(180deg);
+    transform:rotateX(-180deg);
     z-index:0;
 }
 
 .front{
     position:absolute;
-    width:0;height:0;
-    border-left:46vw solid transparent;
-    border-right:46vw solid transparent;
-    border-top:28vw solid #ff5c8a;
-    bottom:calc(50% - 28vw);
+    width:0;
+    height:0;
+    border-left:45vw solid transparent;
+    border-right:45vw solid transparent;
+    border-top:30vw solid #ff5c8a;
+    bottom:0;
     z-index:4;
+}
+.envelope.open .front{
+    z-index:0;
+}
+
+/* ===== DESKTOP ===== */
+@media(min-width:768px){
+    .envelope{
+        width:380px;
+        height:240px;
+        aspect-ratio:unset;
+    }
+    .flap{
+        border-left:190px solid transparent;
+        border-right:190px solid transparent;
+        border-bottom:130px solid #ff5c8a;
+    }
+    .front{
+        border-left:190px solid transparent;
+        border-right:190px solid transparent;
+        border-top:130px solid #ff5c8a;
+    }
+    .envelope.open .card{
+        transform:translateY(-46%);
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- NÚT NHẠC -->
 <button class="music-btn" onclick="toggleMusic(event)">🔊</button>
 
 <div class="envelope" id="envelope">
+
     <div class="back"></div>
 
     <div class="envelope-text">
@@ -207,9 +222,10 @@ body{
 
     <div class="slot">
         <div class="card">
-            <h1>🎂 Happy Birthday 🎉</h1>
+            <h1>🎂Happy Birthday🎉</h1>
 
             <div class="pages">
+                <!-- TRANG 1: 4 ảnh -->
                 <div class="page active">
                     <div class="photos">
                         <img src="img1.jpg">
@@ -217,16 +233,19 @@ body{
                     </div>
                 </div>
 
+                <!-- TRANG 2 -->
                 <div class="page">
-                    <div class="wish">💐 Lan<br>Chúc bạn luôn xinh đẹp và hạnh phúc 💖</div>
+                    <div class="wish">💐 <strong>Ly</strong><br>Lời chúc của Ly 💖</div>
                 </div>
 
+                <!-- TRANG 3 -->
                 <div class="page">
-                    <div class="wish">🎁 Minh<br>Tuổi mới thật nhiều may mắn 🎉</div>
+                    <div class="wish">🎁 <strong>Diệp</strong><br>Lời chúc của Diệp 🎉</div>
                 </div>
 
+                <!-- TRANG 4 -->
                 <div class="page">
-                    <div class="wish">🌸 Hà<br>Mọi điều tốt đẹp nhất luôn bên bạn 💝</div>
+                    <div class="wish">🎉 <strong>Chi</strong><br>Lời chúc của Chi 🌸</div>
                 </div>
             </div>
 
@@ -239,25 +258,25 @@ body{
 
     <div class="flap"></div>
     <div class="front"></div>
+
 </div>
 
-<audio id="bg-music" src="music.mp3" loop muted autoplay></audio>
+<!-- NHẠC -->
+<audio id="bg-music" src="music.mp3" loop></audio>
 
 <script>
+/* ===== CHUYỂN TRANG ===== */
 let currentPage=0;
 const pages=document.querySelectorAll(".page");
-
 function showPage(i){
     pages.forEach(p=>p.classList.remove("active"));
     pages[i].classList.add("active");
 }
-
 function nextPage(e){
     e.stopPropagation();
     currentPage=(currentPage+1)%pages.length;
     showPage(currentPage);
 }
-
 function prevPage(e){
     e.stopPropagation();
     currentPage=(currentPage-1+pages.length)%pages.length;
@@ -266,25 +285,20 @@ function prevPage(e){
 
 /* ===== NHẠC ===== */
 const music=document.getElementById("bg-music");
-let unlocked=false;
-
-function unlockMusic(){
-    if(!unlocked){
-        music.muted=false;
-        music.play().catch(()=>{});
-        unlocked=true;
-    }
-}
-
+let musicStarted=false;
 function toggleMusic(e){
     e.stopPropagation();
-    unlockMusic();
-    music.paused?music.play():music.pause();
+    if(music.paused) music.play();
+    else music.pause();
 }
 
+// mở phong thư → phát nhạc lần đầu
 document.getElementById("envelope").addEventListener("click",()=>{
     document.getElementById("envelope").classList.toggle("open");
-    unlockMusic();
+    if(!musicStarted){
+        music.play().catch(()=>{});
+        musicStarted=true;
+    }
 });
 </script>
 
