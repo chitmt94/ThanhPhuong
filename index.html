@@ -126,6 +126,16 @@ body{
     height:140px;
     object-fit:cover;
 }
+.photowish{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+}
+.photowish img{
+    width:100%;
+    height:140px;
+    object-fit:contain;
+}
 .wish{
     font-size:clamp(14px,4vw,16px);
     text-align:center;
@@ -204,6 +214,64 @@ body{
         transform:translateY(-46%);
     }
 }
+.comic-page{
+    position:relative;
+    width:100%;
+    height:100%;
+}
+.comic-page img{
+    width:100%;
+    height:auto;
+    max-height:300px;
+    object-fit:contain;
+    border-radius:10px;
+}
+.speech-bubble-wrapper {
+    position: absolute;
+    top: 5%;           /* khoảng cách từ trên */
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    text-align: center;
+    z-index: 5;
+}
+
+.speech-bubble {
+    background: #fff;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: clamp(14px,4vw,18px);
+    font-weight: bold;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+	max-width: 200%;             /* rộng hơn */
+    line-height: 1.2;
+	position: relative;
+}
+
+/* ===== 2 HÌNH TRÒN DƯỚI BUBBLE ===== */
+.speech-dots {
+    position: absolute;
+    bottom: -25px;       /* cách đáy bubble */
+    right: 30px;          /* bên phải bubble */
+    display: flex;
+    flex-direction: column;
+    gap: 3px;           /* khoảng cách giữa 2 hình tròn */
+}
+
+.speech-dots .dot {
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+}
+.speech-dots .dot.second {
+    width: 8px;
+    height: 8px;
+	right: 50px;
+}
+
+
 </style>
 </head>
 
@@ -240,13 +308,34 @@ body{
 
                 <!-- TRANG 3 -->
                 <div class="page">
-                    <div class="wish">🎁 <strong>Diệp</strong><br>Lời chúc của Diệp 🎉</div>
+                    <div class="comic-page">
+						<img src="diep.jpg" alt="Diệp">
+					</div>
                 </div>
 
                 <!-- TRANG 4 -->
                 <div class="page">
                     <div class="wish">🎉 <strong>Chi</strong><br>Lời chúc của Chi 🌸</div>
                 </div>
+				<!-- TRANG 5: ẢNH + CHÈN CHỮ -->
+				<div class="page">
+					<div class="comic-page">
+						<img src="final.jpg" alt="Ảnh cuối">
+
+    <!-- Bubble -->
+					<div class="speech-bubble-wrapper">
+						<div class="speech-bubble">
+							Cảm động quá....
+						</div>
+						<div class="speech-dots">
+							<span class="dot first"></span>
+							<span class="dot second"></span>
+						</div>
+					</div>
+				</div>
+
+				</div>
+
             </div>
 
             <div class="nav">
